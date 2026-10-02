@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>InsectenWereld</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#eef8e8;color:#17351b}
+header{background:#2f7d32;color:white;padding:22px;text-align:center}
+nav{background:#205923;padding:10px;text-align:center}
+nav a{color:white;margin:0 10px;text-decoration:none;font-weight:bold}
+main{max-width:1000px;margin:auto;padding:18px}
+.search{display:flex;gap:8px;margin:15px 0}
+.search input{flex:1;padding:14px;font-size:16px;border:2px solid #79a879;border-radius:10px}
+button{padding:14px 18px;border:0;border-radius:10px;background:#2f7d32;color:white;font-weight:bold;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.card{background:white;border:2px solid #b9d8b8;border-radius:14px;padding:16px;text-align:center;cursor:pointer;box-shadow:0 2px 6px #0001}
+.card:active{transform:scale(.98)}
+.emoji{font-size:48px}
+.details{display:none;background:white;border:3px solid #2f7d32;border-radius:16px;padding:20px;margin:20px 0}
+.details.show{display:block}
+.big{font-size:70px;text-align:center}
+.close{float:right;background:#c62828;padding:8px 12px}
+.fact{background:#dff0dc;padding:16px;border-radius:14px;margin-top:18px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header><h1>🐜 InsectenWereld 🦋</h1><p>Alles over insecten</p></header>
+<nav><a href="#soorten">Soorten</a><a href="#weetjes">Weetjes</a><a href="#quiz">Quiz</a></nav>
+<main>
+<h2 id="soorten">🔎 Zoek een insect</h2>
+<div class="search">
+<input id="zoek" type="text" placeholder="Bijvoorbeeld: wandelende tak">
+<button type="button" onclick="zoekInsect()">Zoek</button>
+</div>
+<p id="resultaat"></p>
+
+<div id="details" class="details">
+<button class="close" type="button" onclick="sluitDetails()">✕</button>
+<div class="big" id="detailEmoji"></div>
+<h2 id="detailTitel"></h2>
+<p id="detailTekst"></p>
+<p id="detailExtra"></p>
+</div>
+
+<div class="grid" id="insecten">
+<div class="card" data-name="mieren" onclick="toonDetails('Mieren','🐜','Mieren leven vaak in grote kolonies.','Ze werken samen om voedsel te zoeken en het nest te verzorgen.')"><div class="emoji">🐜</div><h3>Mieren</h3><p>Leven in kolonies.</p></div>
+<div class="card" data-name="honingbij bijen" onclick="toonDetails('Honingbij','🐝','Honingbijen leven samen in een bijenvolk.','Ze verzamelen nectar en stuifmeel en helpen bij de bestuiving van planten.')"><div class="emoji">🐝</div><h3>Honingbij</h3><p>Maakt honing.</p></div>
+<div class="card" data-name="dagvlinders vlinders" onclick="toonDetails('Dagvlinders','🦋','Vlinders beginnen hun leven als rups.','Daarna veranderen ze via een pop in een volwassen vlinder.')"><div class="emoji">🦋</div><h3>Dagvlinders</h3><p>Hebben kleurrijke vleugels.</p></div>
+<div class="card" data-name="nachtvlinders motten" onclick="toonDetails('Nachtvlinders','🦋','Nachtvlinders zijn vooral actief in de avond en nacht.','Er bestaan heel veel verschillende soorten nachtvlinders.')"><div class="emoji">🦋</div><h3>Nachtvlinders</h3><p>Vaak actief in het donker.</p></div>
+<div class="card" data-name="lieveheersbeestjes" onclick="toonDetails('Lieveheersbeestjes','🐞','Lieveheersbeestjes eten vaak bladluizen.','Daardoor zijn ze nuttig voor planten en tuinen.')"><div class="emoji">🐞</div><h3>Lieveheersbeestjes</h3><p>Vaak rood met zwarte stippen.</p></div>
+<div class="card" data-name="neushoornkevers kevers" onclick="toonDetails('Neushoornkevers','🪲','Neushoornkevers hebben sterke lichamen.','Mannetjes hebben bij sommige soorten een opvallende hoorn.')"><div class="emoji">🪲</div><h3>Neushoornkevers</h3><p>Sterke kevers.</p></div>
+<div class="card" data-name="goliathkevers kevers" onclick="toonDetails('Goliathkevers','🪲','Goliathkevers behoren tot de grote kevers.','Ze leven vooral in warme gebieden van Afrika.')"><div class="emoji">🪲</div><h3>Goliathkevers</h3><p>Grote kevers.</p></div>
+<div class="card" data-name="bidsprinkhanen" onclick="toonDetails('Bidsprinkhanen','🦗','Bidsprinkhanen zijn roofinsecten.','Ze gebruiken hun voorpoten om prooien te grijpen.')"><div class="emoji">🦗</div><h3>Bidsprinkhanen</h3><p>Jagen op andere kleine dieren.</p></div>
+<div class="card" data-name="sprinkhanen" onclick="toonDetails('Sprinkhanen','🦗','Sprinkhanen kunnen met hun sterke achterpoten ver springen.','Veel soorten eten planten.')"><div class="emoji">🦗</div><h3>Sprinkhanen</h3><p>Kunnen ver springen.</p></div>
+<div class="card" data-name="wandelende tak wandelende takken" onclick="toonDetails('Wandelende takken','🪵','Wandelende takken lijken op takjes en bladeren.','Door hun camouflage kunnen ze moeilijk te zien zijn.')"><div class="emoji">🪵</div><h3>Wandelende takken</h3><p>Lijken op takjes.</p></div>
+</div>
+
+<div class="fact"><h2>🌍 Insecten zijn enorm divers</h2><p>Er zijn miljoenen verschillende insectensoorten. Insecten leven bijna overal en zijn belangrijk voor de natuur.</p></div>
+
+<h2 id="weetjes">💡 Weetjes</h2>
+<ul>
+<li>Veel insecten helpen bloemen bestuiven.</li>
+<li>Insecten zijn voedsel voor veel andere dieren.</li>
+<li>Sommige insecten kunnen vliegen, springen of zwemmen.</li>
+</ul>
+
+<h2 id="quiz">🧠 Quiz</h2>
+<p>Welk insect maakt honing?</p>
+<button type="button" onclick="antwoord('bij')">🐝 Bij</button>
+<button type="button" onclick="antwoord('mier')">🐜 Mier</button>
+<p id="quizAntwoord"></p>
+</main>
+
+<script>
+function toonDetails(titel, emoji, tekst, extra){
+ document.getElementById('detailTitel').textContent=titel;
+ document.getElementById('detailEmoji').textContent=emoji;
+ document.getElementById('detailTekst').textContent=tekst;
+ document.getElementById('detailExtra').textContent=extra;
+ document.getElementById('details').classList.add('show');
+ document.getElementById('details').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function sluitDetails(){document.getElementById('details').classList.remove('show');}
+function zoekInsect(){
+ var zoek=document.getElementById('zoek').value.toLowerCase().trim();
+ var kaarten=document.querySelectorAll('#insecten .card');
+ var aantal=0;
+ var zoekWoorden=zoek.split(/\s+/).filter(Boolean);
+
+ for(var i=0;i<kaarten.length;i++){
+  var naam=kaarten[i].getAttribute('data-name').toLowerCase();
+  var naamWoorden=naam.split(/\s+/);
+  var zichtbaar=zoek==='';
+
+  if(zoek!==''){
+   zichtbaar=true;
+   for(var j=0;j<zoekWoorden.length;j++){
+    var gevonden=false;
+    for(var k=0;k<naamWoorden.length;k++){
+     if(naamWoorden[k].indexOf(zoekWoorden[j])===0){
+      gevonden=true;
+      break;
+     }
+    }
+    if(!gevonden){zichtbaar=false;break;}
+   }
+  }
+
+  kaarten[i].style.display=zichtbaar?'block':'none';
+  if(zichtbaar)aantal++;
+ }
+ document.getElementById('resultaat').textContent=zoek===''?'':(aantal?'Gevonden: '+aantal+' insect(en).':'Geen insect gevonden.');
+}
+function antwoord(a){
+ document.getElementById('quizAntwoord').textContent=a==='bij'?'Goed! 🎉':'Bijna! Het juiste antwoord is de bij 🐝';
+}
+document.getElementById('zoek').addEventListener('keydown',function(e){if(e.key==='Enter')zoekInsect();});
+</script>
+</body>
+</html>
